@@ -17,17 +17,17 @@ public class TelaUsuario extends javax.swing.JFrame {
 
     Usuario usuario = new Usuario();
     UsuarioDAO dao = new UsuarioDAO();
-    
-    
+
     public TelaUsuario() {
         initComponents();
     }
-    
-    public void limparCampos(){
-        usuario = new Usuario();
+
+    public void limparCampos() {
+
         tfNome.setText("");
         tfUsuario.setText("");
         tfSenha.setText("");
+        usuario = new Usuario();
     }
 
     /**
@@ -59,10 +59,15 @@ public class TelaUsuario extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/univs/edu/imagens/telaUsuario.png"))); // NOI18N
         jLabel1.setText("jLabel1");
-        jLabel1.setSize(new java.awt.Dimension(80, 80));
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel3.setText("Nome.:");
+
+        tfNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfNomeActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel4.setText("Usuário.:");
@@ -80,6 +85,11 @@ public class TelaUsuario extends javax.swing.JFrame {
         jButton2.setText("Pesquisar");
 
         jButton3.setText("Voltar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Limpar");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -163,19 +173,27 @@ public class TelaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(tfNome.getText().isEmpty() || tfSenha.getText().isEmpty()
-                || tfUsuario.getText().isEmpty() ){
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
-        }else{
-            usuario.setNomeUsuario(tfNome.getText());
-            usuario.setLogin(tfUsuario.getText());
+        if (!tfNome.getText().equals("")) {
+            usuario.setLogin(tfNome.getText());
             usuario.setSenha(tfSenha.getText());
-            dao.salvar(usuario);
+            usuario.setNome(tfNome.getText());
+            dao.salvarUsuario(usuario);
             limparCampos();
+            JOptionPane.showMessageDialog(null,"Cadastro efetuado com sucesso!");
+        }else{JOptionPane.showMessageDialog(null,"Existem Campos Obrigatórios que não foram preenchidos");
+        
         }
-        
-        
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void tfNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfNomeActionPerformed
 
     /**
      * @param args the command line arguments

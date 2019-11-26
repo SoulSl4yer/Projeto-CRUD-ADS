@@ -56,6 +56,10 @@ public class UsuarioDAO {
                 createCriteria(Usuario.class).list();
         return usuarios;      
     }
+
+    public void salvarUsuario(Usuario usuario) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }
