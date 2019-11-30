@@ -17,17 +17,23 @@ public class TelaUsuario extends javax.swing.JFrame {
 
     Usuario usuario = new Usuario();
     UsuarioDAO dao = new UsuarioDAO();
-    
-    
+
     public TelaUsuario() {
         initComponents();
     }
-    
-    public void limparCampos(){
+
+    public void limparCampos() {
         usuario = new Usuario();
         tfNome.setText("");
         tfUsuario.setText("");
         tfSenha.setText("");
+    }
+
+    public void carregarUsuario(Usuario usuario) {
+        tfNome.setText(usuario.getNomeUsuario());
+        tfUsuario.setText(usuario.getLogin());
+        tfSenha.setText(usuario.getSenha());
+        this.usuario = usuario;
     }
 
     /**
@@ -172,24 +178,24 @@ public class TelaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(tfNome.getText().isEmpty() || tfSenha.getText().isEmpty()
-                || tfUsuario.getText().isEmpty() ){
+        if (tfNome.getText().isEmpty() || tfSenha.getText().isEmpty()
+                || tfUsuario.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
-        }else{
+        } else {
             usuario.setNomeUsuario(tfNome.getText());
             usuario.setLogin(tfUsuario.getText());
             usuario.setSenha(tfSenha.getText());
             dao.salvar(usuario);
             limparCampos();
         }
-        
-        
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       PesquisaUsuario tela = new PesquisaUsuario();
-       tela.setVisible(true);
-       dispose();
+        PesquisaUsuario tela = new PesquisaUsuario();
+        tela.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

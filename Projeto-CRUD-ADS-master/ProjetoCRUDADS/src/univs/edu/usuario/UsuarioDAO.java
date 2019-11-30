@@ -7,28 +7,27 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import univs.edu.util.HibernateUtil;
 
-
 public class UsuarioDAO {
-    
+
     private Session sessao;
     private Transaction transacao;
-    
-    public void salvar(Usuario usuario){
+
+    public void salvar(Usuario usuario) {
         sessao = HibernateUtil.
                 getSessionFactory().openSession();
         transacao = sessao.beginTransaction();
-        if(usuario.getIdUsuario() == 0){
+        if (usuario.getIdUsuario() == 0) {
             sessao.save(usuario);
             JOptionPane.showMessageDialog(null, "Usuário Cadastrado!");
-        }else{
+        } else {
             sessao.update(usuario);
             JOptionPane.showMessageDialog(null, "Usuário Editado!");
         }
         transacao.commit();
         sessao.close();
     }
-    
-    public void excluir(Usuario usuario){
+
+    public void excluir(Usuario usuario) {
         sessao = HibernateUtil.
                 getSessionFactory().openSession();
         transacao = sessao.beginTransaction();
@@ -36,8 +35,8 @@ public class UsuarioDAO {
         transacao.commit();
         sessao.close();
     }
-    
-    public Usuario pesquisar(int id){
+
+    public Usuario pesquisar(int id) {
         sessao = HibernateUtil.
                 getSessionFactory().openSession();
         transacao = sessao.beginTransaction();
@@ -45,21 +44,28 @@ public class UsuarioDAO {
                 createCriteria(Usuario.class).add(
                 Restrictions.eq("idUsuario", id))
                 .uniqueResult();
-        return usuario;      
+        return usuario;
     }
-    
-    public List<Usuario> pesquisar(){
+
+    public Usuario pesquisar(String login,String senha) {
+        sessao = HibernateUtil.
+                getSessionFactory().openSession();
+        transacao = sessao.beginTransaction();
+        Usuario usuario = (Usuario) sessao.
+                createCriteria(Usuario.class).add(
+                Restrictions.eq("login", login)).add(Restrictions.eq("senha",senha))
+                .uniqueResult();
+        return usuario;
+    }
+
+    public List<Usuario> pesquisar() {
         sessao = HibernateUtil.
                 getSessionFactory().openSession();
         transacao = sessao.beginTransaction();
         List<Usuario> usuarios = sessao.
                 createCriteria(Usuario.class).list();
-        return usuarios;      
+        return usuarios;
     }
 
-    public void exluir(Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
+
 }

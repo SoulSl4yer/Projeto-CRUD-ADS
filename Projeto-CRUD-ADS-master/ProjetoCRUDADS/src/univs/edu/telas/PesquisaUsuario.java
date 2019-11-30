@@ -111,13 +111,24 @@ public class PesquisaUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       TelaUsuario tela = new TelaUsuario();
-       tela.setVisible(true);
-       dispose();
+        TelaUsuario tela = new TelaUsuario();
+        tela.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        int linha = tabelaUsuario.getSelectedRow();
+        if (linha != -1) {
+            int id = (int) tabelaUsuario.getValueAt(linha, 0);
+            usuario = dao.pesquisar(id);
+            TelaUsuario tela = new TelaUsuario();
+            tela.carregarUsuario(usuario);
+            tela.setVisible(true);
+            dispose();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "selecione uma  linha");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -125,9 +136,9 @@ public class PesquisaUsuario extends javax.swing.JFrame {
         if (linha != -1) {
             int id = (int) tabelaUsuario.getValueAt(linha, 0);
             usuario = dao.pesquisar(id);
-            dao.exluir(usuario);
+            dao.excluir(usuario);
             atualizarTabela();
-            JOptionPane.showMessageDialog(null,"Usuário excluido com sucesso!");
+            JOptionPane.showMessageDialog(null, "Usuário excluido com sucesso!");
         } else {
             JOptionPane.showMessageDialog(null, "Selecione uma linha!");
         }
